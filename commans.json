@@ -1,0 +1,14 @@
+{
+  "homework": {
+    "connect": "con:",
+    "get_on_tomorrow": "дзз",
+    "get_today": "дз",
+    "write_in": ".дз",
+    "edit_in": ".дз."
+  },
+  "primary": {
+    "connect": "con:",
+    "write_in": ".зм",
+    "read_out": "зм"
+  }
+}
