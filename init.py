@@ -7,16 +7,18 @@ import aiogram
 from aiogram import F
 from aiogram import Bot, Dispatcher, types
 
+from dataclasses import dataclass
 #bot
 tbot = Bot("8517781384:AAGnekkD_RoQFFdyw5wxPKxPBT61AGsSVhA")
 tl_handle = Dispatcher()
 
 
-with open("data.json", "r", encoding="utf-8") as f:
+with open("commands.json", "r", encoding="utf-8") as f:
     data_cmd = json.load(f)
 
+@dataclass
 class BotHandler:
-    def __init__(self,handler: Dispatcher,):
+    def __init__(self,handler: Dispatcher):
         self.t_handler = handler
         self.private_session_keys = []
         self.group_session_keys = []
@@ -45,7 +47,7 @@ class BotHandler:
         @self.t_handler.message(F.text.lower().contains(data_cmd["homework"]["get_on_tomorrow"]))
         async def get(msg: types.Message):
             if not msg.from_user.id: return "There's no user here"
-            if
+
         @self.t_handler.message(F.text.lower().contains(data_cmd["homework"]["get_today"]))
         async def get(msg: types.Message):
             if not msg.from_user.id: return "There's no user here"
@@ -62,7 +64,7 @@ class BotHandler:
     async def guidence(self):
         pass
     async def get_keys(self):
-        #todo make a DB request to get an generated API keys
+        #todo make a DB request to get a generated API keys
         pass
 
 #updater-entrypoint
