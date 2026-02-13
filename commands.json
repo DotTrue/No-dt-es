@@ -1,14 +1,15 @@
 {
   "homework": {
     "connect": "con:",
-    "get_all": "dzga",
+    "get_all": "дзп",
     "get_today": "dzg",
-    "wrote": "дзв",
+    "wrote": "дзз",
     "edit_in": ".дз."
   },
   "primary": {
     "connect": "con:",
     "write_in": ".зм",
-    "read_out": "зм"
+    "read_out": "зм",
+    "id": "ид"
   }
 }

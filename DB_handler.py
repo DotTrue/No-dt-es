@@ -21,13 +21,29 @@ class DBMS:
         else:
             return None
 
+    async def have_access(self,user_,chat):
+
+        self.cursor.execute("SELECT key FROM keys WHERE chat = ?",(chat,))
+        key1 = self.cursor.fetchone()
+
+        if key1 is None: return False
+        return key1 in self.cursor.execute("SELECT key FROM userskeys WHERE user = ?",(user_,)).fetchall()
+    async def key_in_chat(self, chat ): #ключ для этога чата
+        self.cursor.execute("SELECT key FROME keys WHERE chat = ?",(chat,))
+        result = self.cursor.fetchone()
+        return result
+
+    async def get_bydate(self,user_,chat):
+
+            if await self.have_access(user_,chat):
+                print("acces granted")
+                return self.cursor.execute("SELECT message,userid FROM messages WHERE datetime = ? and chatid = ?",(datetime.datetime.now().strftime("%d.%m"),chat)).fetchall()
     async def assing_key_value(self,user_,key):
         if not user_: return None
         self.cursor.execute("INSERT OR REPLACE INTO userskeys (user,key) VALUES (?,?)",(user_,key))
         self.conn.commit()
 
-    async def check_user_key(self,user_): # return a key of a given user
-        if not user_: return "Pls give a user"
+    async def check_user_key(self,user_): # return a keys of a given user
         self.cursor.execute(f"SELECT key FROM userskeys WHERE user = ? ",(user_,))
         result =  self.cursor.fetchone()
         return result
@@ -36,6 +52,5 @@ class DBMS:
         today = datetime.datetime.now()
         formatted = today.strftime("%d.%m")  # 12.03
         print(f"{formatted} -> {user_}, | INSERT TO A DATABASE")
-        if not (user_ or chat_id or msg): return "Non Valid Data"
-        self.cursor.execute("INSERT INTO messages (message,chatid,userid,datetime) VALUES(?,?,?,?)",(msg4,chat_id,user_,formatted))
+        self.cursor.execute("INSERT INTO messages (message,chatid,userid,datetime) VALUES(?,?,?,?)",(msg,chat_id,user_,formatted))
         self.conn.commit()
