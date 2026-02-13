@@ -1,9 +1,9 @@
 {
   "homework": {
     "connect": "con:",
-    "get_on_tomorrow": "дзз",
-    "get_today": "дз",
-    "write_in": ".дз",
+    "get_all": "dzga",
+    "get_today": "dzg",
+    "wrote": "дзв",
     "edit_in": ".дз."
   },
   "primary": {

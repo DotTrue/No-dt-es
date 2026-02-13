@@ -3,7 +3,7 @@ import asyncio
 from dataclasses import dataclass
 import datetime
 @dataclass
-class DB_handler:
+class DBMS:
     def __init__(self,dbpath):
         self.db_path = dbpath
         self.conn = sqlite3.connect(dbpath)
@@ -28,8 +28,8 @@ class DB_handler:
 
     async def check_user_key(self,user_): # return a key of a given user
         if not user_: return "Pls give a user"
-        self.cursor.execute(f"SELECT keys FROM userskeys WHERE user = ? ",(user_,))
-        result = await self.cursor.fetchone()
+        self.cursor.execute(f"SELECT key FROM userskeys WHERE user = ? ",(user_,))
+        result =  self.cursor.fetchone()
         return result
 
     async def load_in_msg(self,msg,chat_id,user_):
@@ -37,5 +37,5 @@ class DB_handler:
         formatted = today.strftime("%d.%m")  # 12.03
         print(f"{formatted} -> {user_}, | INSERT TO A DATABASE")
         if not (user_ or chat_id or msg): return "Non Valid Data"
-        self.cursor.execute("INSERT INTO messages (message,chatid,userid,datetime) VALUES(?,?,?,?)",(msg,chat_id,user_,formatted))
+        self.cursor.execute("INSERT INTO messages (message,chatid,userid,datetime) VALUES(?,?,?,?)",(msg4,chat_id,user_,formatted))
         self.conn.commit()
