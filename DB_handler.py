@@ -27,10 +27,13 @@ class DBMS:
         key1 = self.cursor.fetchone()
 
         if key1 is None: return False
+
         return key1 in self.cursor.execute("SELECT key FROM userskeys WHERE user = ?",(user_,)).fetchall()
-    async def key_in_chat(self, chat ): #ключ для этога чата
-        self.cursor.execute("SELECT key FROME keys WHERE chat = ?",(chat,))
-        result = self.cursor.fetchone()
+    async def key_in_chat(self, chat): #ключ для этога чата
+        if chat is int: chat = str(chat)
+
+        self.cursor.execute("SELECT key FROM keys WHERE chat LIKE ?",(chat,))
+        result = self.cursor.fetchall()
         return result
 
     async def get_bydate(self,user_,chat):
@@ -44,7 +47,7 @@ class DBMS:
         self.conn.commit()
 
     async def check_user_key(self,user_): # return a keys of a given user
-        self.cursor.execute(f"SELECT key FROM userskeys WHERE user = ? ",(user_,))
+        self.cursor.execute(f"SELECT key FROM userkeys WHERE user = ?",(user_,))
         result =  self.cursor.fetchone()
         return result
 
